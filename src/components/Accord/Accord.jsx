@@ -1,8 +1,9 @@
 import React, { useState } from "react";
 import "./Accord.css";
+import { faq } from "../../App";
 
-function Accord({ title, content, id }) {
-  console.log("key", id);
+function Accord() {
+  console.log("key", faq.id);
  
   const [currentActive, setCurrentActive] = useState(" ");
  
@@ -15,20 +16,25 @@ function Accord({ title, content, id }) {
   console.log("after setactiveid",currentActive)
 
   return (
-    <div className="accord">
-      <div className="accordSection">
-        <div key={id} className="accordTitle">
-          <div key={id}>{title}</div>
-          <div onClick={() => checkactive(id)}>
-            {currentActive === id ? "-" : "+"}
+    <>
+    {faq.map((item)=>(
+          <div key={item.id} className="accord">
+          <div className="accordSection">
+            <div key={item.id} className="accordTitle">
+              <div key={item.id}>{item.title}</div>
+              <div onClick={() => checkactive(item.id)}>
+                {currentActive === item.id ? "-" : "+"}
+              </div>
+            </div>
+            {currentActive === item.id && (
+              <div className="accordContent"> {item.content}</div>
+            )}
           </div>
         </div>
-        {currentActive === id && (
-          <div className="accordContent"> {content}</div>
-        )}
-      </div>
-    </div>
+              ))}
+              </>
   );
+
 }
 
 export default Accord;
